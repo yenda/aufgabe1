@@ -3,7 +3,7 @@ import java.rmi.server.*; // pour UnicastRemoteObject
 
 public class Server extends UnicastRemoteObject implements MessageServerInterface {
 
-	public Server () throws RemoteException{
+	public Server() throws RemoteException{
 		
 	}
 	
