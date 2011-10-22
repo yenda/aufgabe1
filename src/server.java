@@ -1,12 +1,18 @@
+import java.rmi.*;
+import java.rmi.server.*; // pour UnicastRemoteObject
 
-public class server {
+public class Server extends UnicastRemoteObject implements MessageServerInterface {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public Server () throws RemoteException{
+		
+	}
+	
+	public String getMessage(String clientID) throws RemoteException {
+		return null;
+	}
 
+	public void dropMessage(String clientID, String message) throws RemoteException {
+		
 	}
 
 }
