@@ -11,7 +11,7 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 	}
 
 	public void dropMessage(String clientID, String message) throws RemoteException {
-		
+		 
 	}
 
 	
