@@ -1,6 +1,7 @@
 import java.rmi.*;
 import java.rmi.server.*; // for UnicastRemoteObject
 
+@SuppressWarnings("serial")
 public class Server extends UnicastRemoteObject implements MessageServerInterface { 
 	
 	//Interface implementation
