@@ -1,7 +1,6 @@
 package components;
 
 import java.awt.event.*;
-
 import javax.swing.*;
 
 @SuppressWarnings("serial")
