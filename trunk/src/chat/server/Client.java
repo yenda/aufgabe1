@@ -17,7 +17,6 @@ public class Client {
 	public int getIdLastMessage() {
 		return idLastMessage;
 	}
-
 	public void setIdLastMessage(int idLastMessage) {
 		this.idLastMessage = idLastMessage;
 	}
@@ -25,7 +24,6 @@ public class Client {
 	public Date getExpiration() {
 		return expiration;
 	}
-
 	public void setExpiration(Date expiration) {
 		this.expiration = expiration;
 	}
