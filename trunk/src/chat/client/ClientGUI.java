@@ -12,7 +12,7 @@ public class ClientGUI extends JPanel{
 	protected JPanel panel;
 	
 	//Constructor of the GUI
-	public ClientGUI(){
+	private ClientGUI(){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		panel = new JPanel();		
@@ -44,7 +44,7 @@ public class ClientGUI extends JPanel{
 	}
 	
 	//Create the Menu bar
-	public static JMenuBar createMenuBar() {
+	private static JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menu;
         JMenuItem menuItem;
@@ -91,14 +91,14 @@ public class ClientGUI extends JPanel{
 	}
 	
 	//Call the method dropMessage() when the action is performed
-    public class sendButtonListener implements ActionListener {
+    private class sendButtonListener implements ActionListener {
     	public void actionPerformed(ActionEvent event){
 			dropMessage();
     	}
     }
     
     //Call the method dropMessage() when the key ENTER is released
-    public class chatInputListener implements KeyListener {
+    private class chatInputListener implements KeyListener {
 		public void keyReleased(KeyEvent e) {
 		    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 		  		dropMessage();
