@@ -1,5 +1,8 @@
+package chat.server;
+
 import java.rmi.*;
 import java.rmi.server.*; // for UnicastRemoteObject
+import chat.MessageServerInterface;
 
 @SuppressWarnings("serial")
 public class Server extends UnicastRemoteObject implements MessageServerInterface { 

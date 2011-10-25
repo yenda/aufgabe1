@@ -1,10 +1,10 @@
-package components;
+package chat.client;
 
 import java.awt.event.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class clientGUI extends JPanel{
+public class ClientGUI extends JPanel{
 	
 	protected JButton sendButton;
 	protected JTextArea chatHistory;
@@ -12,7 +12,7 @@ public class clientGUI extends JPanel{
 	protected JPanel panel;
 	
 	//Constructor of the GUI
-	public clientGUI(){
+	public ClientGUI(){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		panel = new JPanel();		
@@ -75,7 +75,7 @@ public class clientGUI extends JPanel{
         frame.setJMenuBar(createMenuBar());
 		
         //Create and set up the content pane.
-        clientGUI newContentPane = new clientGUI();
+        ClientGUI newContentPane = new ClientGUI();
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);      
 				

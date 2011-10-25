@@ -1,3 +1,5 @@
+package chat;
+
 import java.rmi.*;
 
 public interface MessageServerInterface extends Remote {
