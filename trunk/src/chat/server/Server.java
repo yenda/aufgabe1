@@ -3,7 +3,6 @@ package chat.server;
 import java.rmi.*;
 import java.rmi.registry.*; // for LocaleRegistry
 import java.rmi.server.*; // for UnicastRemoteObject
-import java.util.ArrayList;
 
 import chat.MessageServerInterface;
 
@@ -16,7 +15,7 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 	public static final int MAX_MESSAGES = 100;
 	public static final long MAX_CLIENT_IDLE_TIME = 100;
 	
-	private ArrayList<Client> listClients;
+	private Clients listClients;
 	/**
 	 * @uml.property  name="listMessages"
 	 * @uml.associationEnd  
@@ -33,7 +32,7 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 	}
 	
 	public String getMessage(String clientID) throws RemoteException {
-		return listClients.getMessage(String clientID);
+		return listClients.getMessage(clientID);
 	}
 
 	public void dropMessage(String clientID, String message) throws RemoteException {
