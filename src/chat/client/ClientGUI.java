@@ -1,6 +1,8 @@
 package chat.client;
 
+//import java.awt.Frame;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 @SuppressWarnings("serial")
@@ -61,6 +63,16 @@ public class ClientGUI extends JPanel{
         menuItem = new JMenuItem("Settings", KeyEvent.VK_S);
         menu.add(menuItem);
         
+        menuItem.setActionCommand("Settings");
+        //Action when we click on menuItem
+        menuItem.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent arg0) {
+				Settings settings = new Settings(null, "Settings", false);
+				SettingsInfo sInfo = settings.showSetdialog(); 
+			}
+        });
+        
         return menuBar;
     }
 	
@@ -117,4 +129,6 @@ public class ClientGUI extends JPanel{
             }
         });
     }
-}
+    
+    
+ }
