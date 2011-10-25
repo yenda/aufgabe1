@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 import chat.MessageServerInterface;
 
+/**
+ * @author  Pierre-Henri
+ */
 @SuppressWarnings("serial")
 public class Server extends UnicastRemoteObject implements MessageServerInterface { 
 	
@@ -14,6 +17,10 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 	public static final long MAX_CLIENT_IDLE_TIME = 100;
 	
 	private ArrayList<Client> listClients;
+	/**
+	 * @uml.property  name="listMessages"
+	 * @uml.associationEnd  
+	 */
 	private Messages listMessages;
 	private int messageID;
 	
