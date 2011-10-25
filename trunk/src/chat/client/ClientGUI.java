@@ -1,6 +1,5 @@
 package chat.client;
 
-//import java.awt.Frame;
 import java.awt.event.*;
 
 import javax.swing.*;
