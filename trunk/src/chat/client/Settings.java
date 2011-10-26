@@ -1,7 +1,7 @@
 package chat.client;
 
 import javax.swing.*;
-
+import java.awt.event.*;
 import java.awt.*;
 
 //Box settings
