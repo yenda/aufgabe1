@@ -60,7 +60,7 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 		
 		try {
 			MessageServerInterface chatServer = new Server();
-			//MessageServerInterface stub = (MessageServerInterface) UnicastRemoteObject.exportObject(chatServer, 0);
+			MessageServerInterface stub = (MessageServerInterface) UnicastRemoteObject.exportObject(chatServer, 0);
 			Naming.rebind("Server", chatServer);
 		} catch (Exception ex) {
 			System.err.println("RMI server exception:" + ex);
