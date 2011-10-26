@@ -1,7 +1,9 @@
 package chat.client;
-import java.rmi.Naming;
+
+
 import chat.MessageServerInterface;
 
+import java.rmi.Naming;
 import java.util.Timer;
 
 /**
@@ -22,7 +24,7 @@ public class Client {
 	public static void killTimer(){
 		
 	}
-	private MessageServerInterface obj = null;
+
 	
 	private String clientID;
 	public String getClientID() {
@@ -48,8 +50,8 @@ public class Client {
 	public String getMessage(String clientID)
 	{
 		try {
-			obj = (MessageServerInterface)Naming.lookup("Server");
-			return obj.getMessage(clientID);
+			ClientGUI.serverMsg = (MessageServerInterface)Naming.lookup("Server");
+			return ClientGUI.serverMsg.getMessage(clientID);
 		} catch (Exception e) {
 			System.err.println("Rmi Client exception: " + e);
 			e.printStackTrace();
@@ -61,8 +63,8 @@ public class Client {
 	public void dropMessage(String clientID, String message)
 	{
 		try {
-			obj = (MessageServerInterface)Naming.lookup("Server");
-			obj.dropMessage(clientID,message);
+			ClientGUI.serverMsg = (MessageServerInterface)Naming.lookup("Server");
+			ClientGUI.serverMsg.dropMessage(clientID,message);
 		} catch (Exception e) {
 			System.err.println("Rmi Client exception: " + e);
 			e.printStackTrace();
