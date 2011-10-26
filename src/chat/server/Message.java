@@ -16,13 +16,13 @@ public class Message {
 	/**
 	 * @uml.property  name="timestamp"
 	 */
-	private long timestamp;
+	private String timestamp;
 	
-	public Message(int messageID, String clientID, String message, long timestamp ){
+	public Message(int messageID, String clientID, String message, String date ){
 		this.messageID = messageID;
 		this.clientID = clientID;
 		this.message = message;
-		this.timestamp = timestamp;
+		this.timestamp = date;
 	}
 	
 	public String messageToString(){
@@ -66,7 +66,7 @@ public class Message {
 	 * @return
 	 * @uml.property  name="timestamp"
 	 */
-	public long getTimestamp() {
+	public String getTimestamp() {
 		return timestamp;
 	}
 
