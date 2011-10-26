@@ -1,16 +1,18 @@
 package chat.client;
 
 import java.awt.event.*;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class ClientGUI extends JPanel{
 	
-	protected Client client = new Client();
 	protected JButton sendButton;
 	protected JTextArea chatHistory;
 	protected JTextArea chatInput;
 	protected JPanel panel;
+	protected static Client client = new Client();
 	
 	//Constructor of the GUI
 	private ClientGUI(){
@@ -67,7 +69,7 @@ public class ClientGUI extends JPanel{
         menuItem.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-				Settings settings = new Settings(null, "Settings", false);
+				SettingsGUI settings = new SettingsGUI(null, "Settings", false, client);
 				settings.showSetdialog(); 
 			}
         });
