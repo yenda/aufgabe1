@@ -27,8 +27,6 @@ public class Message {
 		return message;
 	}
 
-	
-	/*******Getters*******/
 	public int getMessageID() {
 		return messageID;
 	}

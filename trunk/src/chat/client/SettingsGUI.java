@@ -3,7 +3,6 @@ package chat.client;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.util.Timer;
 
 /**
  * @author Laurine and Eric
@@ -13,7 +12,7 @@ public class SettingsGUI extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel usernameLabel, serverLabel, timeoutLabel, refreshRateLabel;
-	private JTextField username, server, timeout, refreshrate;
+	private JTextField clientID, server, timeout, refreshrate;
 
 	/**
 	 * Builder
@@ -51,12 +50,12 @@ public class SettingsGUI extends JDialog {
 		JPanel panUsername = new JPanel();
 		panUsername.setBackground(Color.white);
 		panUsername.setPreferredSize(new Dimension(220, 60));
-		username = new JTextField();
-		username.setPreferredSize(new Dimension(100, 25));
+		clientID = new JTextField();
+		clientID.setPreferredSize(new Dimension(100, 25));
 		panUsername.setBorder(BorderFactory.createTitledBorder("Username"));
 		usernameLabel = new JLabel("Username :");
 		panUsername.add(usernameLabel);
-		panUsername.add(username);
+		panUsername.add(clientID);
 		
 		//Server
 		JPanel panServer = new JPanel();
@@ -103,62 +102,7 @@ public class SettingsGUI extends JDialog {
 		
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if((getUsername()) && (getServer()) && (getTimeout()) && (getRefreshrate())){
-					ClientGUI.timer = new Timer();
-		            ClientGUI.timer.scheduleAtFixedRate(new ClientGUI.getMessage(), 0, client.getRefreshrate());
-					setVisible(false);
-				}
-				else
-					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-			}
-			public boolean getUsername() {
-				String Username = username.getText();
-				if((Username != null) && (Username.length() > 0)){
-					client.setUsername(Username);
-					return true;
-				}
-				else
-					return false;
-			}
-			public boolean getServer() {
-				if((server.getText() != null) && (server.getText().length() > 0)){
-					client.setServer(server.getText());
-					return true;
-				}
-				else
-					return false;
-			}
-			public boolean getTimeout(){
-				if((timeout.getText() != null))
-				{
-					int Timeout;
-					try {	    
-					    Timeout = Integer.parseInt(timeout.getText());
-					  }
-					catch (NumberFormatException e) {
-					    return false;
-					  }
-					client.setTimeout(Timeout);
-					return true;
-				}
-				else
-					return false;
-			}
-			public boolean getRefreshrate(){
-				if((refreshrate.getText() != null))
-				{
-					int Refreshrate;
-					try {	    
-					    Refreshrate = Integer.parseInt(refreshrate.getText());
-					  }
-					catch (NumberFormatException e) {
-					    return false;
-					  }
-					client.setRefreshrate(Refreshrate);
-					return true;
-				}
-				else
-					return false;
+				getValues();
 			}	
 		});
 		
@@ -174,5 +118,36 @@ public class SettingsGUI extends JDialog {
 
 		this.getContentPane().add(content, BorderLayout.CENTER);
 		this.getContentPane().add(control, BorderLayout.SOUTH);
+		
+		
 	}
+	
+	//Set the values from the Settings box and create a new client with them
+	public void getValues(){
+		String clientID = this.clientID.getText();
+		String server = this.server.getText();
+		String strTimeout = this.timeout.getText();
+		String strRefreshrate = this.refreshrate.getText();
+		
+		if((clientID != null) && (server != null) && (strTimeout != null) && (strRefreshrate != null))
+		{
+			int refreshrate=0, timeout=0;
+			try {	    
+			    refreshrate = Integer.parseInt(strRefreshrate);
+			    timeout = Integer.parseInt(strTimeout);
+			    try{
+			    	Client.timer.cancel();
+			    }catch (NullPointerException e){
+			    	
+			    }
+			    
+			    ClientGUI.setClient(new Client(clientID,server,timeout,refreshrate*1000));
+			    setVisible(false);
+			  }catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+			  }			
+		}
+		else
+			JOptionPane.showMessageDialog(null, "Some fields are missing", "Error", JOptionPane.ERROR_MESSAGE);
+	}	
 }
