@@ -1,7 +1,6 @@
 package chat.client;
 
 import java.awt.event.*;
-import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
 
@@ -15,7 +14,6 @@ public class ClientGUI extends JPanel{
 	protected JTextArea chatHistory;
 	protected JTextArea chatInput;
 	protected JPanel panel;
-	public static Timer timer;
 	private static SettingsGUI settings = new SettingsGUI();
 	private static Client client;
 		
@@ -80,6 +78,7 @@ public class ClientGUI extends JPanel{
         menuItem.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
+				settings = new SettingsGUI();
 				settings.showSetdialog(); 
 			}
         });
@@ -138,7 +137,7 @@ public class ClientGUI extends JPanel{
 		public void run(){
 			try {
 				client.getMessage(client.getClientID());
-				System.out.println("Messages updated");
+				System.out.println(System.currentTimeMillis()/1000);
 			}catch(NullPointerException e)
 			{
 				System.out.println("Exception: "+ e);
