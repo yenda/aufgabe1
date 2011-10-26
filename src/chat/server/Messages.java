@@ -2,6 +2,9 @@ package chat.server;
 
 import java.util.ArrayList;
 
+/**
+ * @author  Eric
+ */
 public class Messages {
 	private ArrayList<Message> listMessages;
 	
@@ -13,9 +16,6 @@ public class Messages {
 		listMessages.add(new Message(messageID, clientID, message, System.currentTimeMillis()));		
 	}
 	
-	/**
-	 * @author  Pierre-Henri
-	 */
 	public class Message {
 		/**
 		 * @uml.property  name="messageID"
