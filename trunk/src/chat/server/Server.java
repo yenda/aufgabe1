@@ -7,7 +7,7 @@ import java.rmi.server.*; // for UnicastRemoteObject
 import chat.MessageServerInterface;
 
 /**
- * @author  Pierre-Henri
+ * @author  Pierre-Henri and Eric
  */
 @SuppressWarnings("serial")
 public class Server extends UnicastRemoteObject implements MessageServerInterface { 
@@ -22,7 +22,7 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 	 */
 	private Messages listMessages;
 	private int messageID;
-	
+
 	//Interface implementation
 	public Server() throws RemoteException{
 		listClients = new Clients();
@@ -31,7 +31,7 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 		
 	}
 	
-	public String getMessage(String clientID) throws RemoteException {
+	public String getMessage(String clientID, int messageID) throws RemoteException {
 		return listClients.getMessage(clientID);
 	}
 

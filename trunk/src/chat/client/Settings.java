@@ -6,6 +6,10 @@ import java.awt.*;
 //Box settings
 public class Settings extends JDialog {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private SettingsInfo settInfo = new SettingsInfo();
 	private JLabel usernameLabel, serverLabel, serverPortLabel, timeoutLabel, refreshRateLabel;
 	private JTextField username, server, serverport, timeout, refreshrate;
