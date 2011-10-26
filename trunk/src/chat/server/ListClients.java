@@ -44,13 +44,20 @@ public class ListClients {
 		listClients.add(client);
 	}
 	
-	public void cleanUp (ClientData client){
+	/**
+	 * delete the clients who have been idle for too long
+	 * @return nb of deleted client
+	 */
+	public int cleanUp (){
 		long timestamp = System.currentTimeMillis();
+		int deleted = 0;
 		for (int i = 0; i < this.listClients.size();i++){
 			if (this.listClients.get(i).getExpiration() < timestamp){
 				this.listClients.remove(i);
+				deleted++;
 			}
 		}
+		return deleted;
 	}
 
 }
