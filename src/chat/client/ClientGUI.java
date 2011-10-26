@@ -13,6 +13,7 @@ public class ClientGUI extends JPanel{
 	protected JTextArea chatInput;
 	protected JPanel panel;
 	protected static Client client = new Client();
+	private Timer timer;
 	
 	//Constructor of the GUI
 	private ClientGUI(){
@@ -39,6 +40,9 @@ public class ClientGUI extends JPanel{
         //Put the chatHistory and chatInput textAreas in scroll panes.
         JScrollPane scrollerChatHistory = new JScrollPane(chatHistory);
         JScrollPane scrollerChatInput = new JScrollPane(chatInput);
+        
+        timer = new Timer();
+		timer.scheduleAtFixedRate(new getMessage(), 0, client.getTimeout());
         
         panel.add(scrollerChatInput);
 		panel.add(sendButton);
@@ -121,6 +125,13 @@ public class ClientGUI extends JPanel{
 		public void keyPressed(KeyEvent e) {}
 		public void keyTyped(KeyEvent e) {}
     }
+    
+    class getMessage extends TimerTask{
+		public void run(){
+			client.getMessage(client.getUsername());
+			System.out.println("Messages reçus");
+		}
+	}
     
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
