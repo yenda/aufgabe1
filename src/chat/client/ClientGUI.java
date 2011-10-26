@@ -5,16 +5,24 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
 
-@SuppressWarnings("serial")
+/**
+ * @author Laurine and Eric
+ */
 public class ClientGUI extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 	protected JButton sendButton;
 	protected JTextArea chatHistory;
 	protected JTextArea chatInput;
 	protected JPanel panel;
-	protected static Client client=new Client();
 	public static Timer timer;
-	
+	private static SettingsGUI settings = new SettingsGUI();
+	private static Client client;
+		
+	public static void setClient(Client client) {
+		ClientGUI.client = client;
+	}
+
 	//Constructor of the GUI
 	private ClientGUI(){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -45,6 +53,8 @@ public class ClientGUI extends JPanel{
 		panel.add(sendButton);
 		add(scrollerChatHistory);
 		add(panel);
+		
+
 	}
 	
 	//Create the Menu bar
@@ -70,7 +80,6 @@ public class ClientGUI extends JPanel{
         menuItem.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-				SettingsGUI settings = new SettingsGUI(null, "Settings", false, client);
 				settings.showSetdialog(); 
 			}
         });
@@ -93,25 +102,17 @@ public class ClientGUI extends JPanel{
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);      
 		
-        try {
-    		timer = new Timer();
-            timer.scheduleAtFixedRate(new getMessage(), 0, client.getRefreshrate());
-    	}catch(IllegalArgumentException e)
-    	{
-    		timer = new Timer();
-            timer.scheduleAtFixedRate(new getMessage(), 0, 5000);
-    	}
+        //Display the dialog window
+        settings.showSetdialog();
         
         //Display the window.
         frame.pack();
         frame.setVisible(true);
 	}
 	
-	//TO MODIFY AND REPLACE BY THE REMOTE METHOD
+
 	public void dropMessage(){
-		//client.dropMessage(clientID, message);
-		chatHistory.append(chatInput.getText());
-		chatInput.setText("");
+		client.dropMessage(client.getClientID(), chatInput.getText());
 	}
 	
 	//Call the method dropMessage() when the action is performed
@@ -136,7 +137,7 @@ public class ClientGUI extends JPanel{
     public static class getMessage extends TimerTask{
 		public void run(){
 			try {
-				client.getMessage(client.getUsername());
+				client.getMessage(client.getClientID());
 				System.out.println("Messages updated");
 			}catch(NullPointerException e)
 			{
@@ -149,7 +150,7 @@ public class ClientGUI extends JPanel{
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            public void run() {				 
                 createAndShowGUI();
             }
         });
