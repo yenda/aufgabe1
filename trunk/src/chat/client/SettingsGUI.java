@@ -5,15 +5,15 @@ import java.awt.event.*;
 import java.awt.*;
 
 //Box settings
-public class Settings extends JDialog {
+public class SettingsGUI extends JDialog {
 	
 	/**
-	 * 
+	 * @author Laurine
 	 */
 	private static final long serialVersionUID = 1L;
-	private SettingsInfo settInfo = new SettingsInfo();
-	private JLabel usernameLabel, serverLabel, serverPortLabel, timeoutLabel, refreshRateLabel;
-	private JTextField username, server, serverport, timeout, refreshrate;
+	private JLabel usernameLabel, serverLabel, timeoutLabel, refreshRateLabel;
+	private JTextField username, server, timeout, refreshrate;
+	private Client client;
 
 	/**
 	 * Builder
@@ -21,7 +21,7 @@ public class Settings extends JDialog {
 	 * @param title
 	 * @param modal
 	 */
-	public Settings(JFrame fromFrame, String title, boolean modal){
+	public SettingsGUI(JFrame fromFrame, String title, boolean modal, Client client){
 		//builder JDialog
 		super(fromFrame, title, modal);
 		//size
@@ -30,6 +30,7 @@ public class Settings extends JDialog {
 		this.setLocationRelativeTo(null);
 		//not resizable
 		this.setResizable(false);
+		this.client=client;
 		
 		this.setVisible(true);
 	}
@@ -38,10 +39,10 @@ public class Settings extends JDialog {
 	 * Method which is called to use the box 
 	 * @return settInfo
 	 */
-	public SettingsInfo showSetdialog(){
+	public SettingsGUI showSetdialog(){
 		this.initComponent();
 		this.setVisible(true);
-		return this.settInfo;		
+		return this;		
 	}
 	
 	/**
@@ -70,17 +71,6 @@ public class Settings extends JDialog {
 		panServer.add(serverLabel);
 		panServer.add(server);
 		
-		//Serverport
-		JPanel panServerPort = new JPanel();
-		panServerPort.setBackground(Color.white);
-		panServerPort.setPreferredSize(new Dimension(220, 60));
-		serverport = new JTextField();
-		serverport.setPreferredSize(new Dimension(100, 25));
-		panServerPort.setBorder(BorderFactory.createTitledBorder("Serverport"));
-		serverPortLabel = new JLabel("Serverport :");
-		panServerPort.add(serverPortLabel);
-		panServerPort.add(serverport);
-		
 		//Timeout
 		JPanel panTimeout = new JPanel();
 		panTimeout.setBackground(Color.white);
@@ -107,7 +97,6 @@ public class Settings extends JDialog {
 		content.setBackground(Color.white);
 		content.add(panUsername);
 		content.add(panServer);
-		content.add(panServerPort);
 		content.add(panTimeout);
 		content.add(panRefreshrate);
 		
@@ -117,10 +106,60 @@ public class Settings extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Récupérer valeurs saisies?
-				setVisible(false);
-				
+				if((getUsername()) && (getServer()) && (getTimeout()) && (getRefreshrate()))
+					setVisible(false);
+				else
+					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 			}
-			
+			public boolean getUsername() {
+				String Username = username.getText();
+				if((Username != null) && (Username.length() > 0)){
+					client.setUsername(Username);
+					return true;
+				}
+				else
+					return false;
+			}
+			public boolean getServer() {
+				if((server.getText() != null) && (server.getText().length() > 0)){
+					client.setServer(server.getText());
+					return true;
+				}
+				else
+					return false;
+			}
+			public boolean getTimeout(){
+				if((timeout.getText() != null))
+				{
+					int Timeout;
+					try {	    
+					    Timeout = Integer.parseInt(timeout.getText());
+					  }
+					catch (NumberFormatException e) {
+					    return false;
+					  }
+					client.setTimeout(Timeout);
+					return true;
+				}
+				else
+					return false;
+			}
+			public boolean getRefreshrate(){
+				if((refreshrate.getText() != null))
+				{
+					int Refreshrate;
+					try {	    
+					    Refreshrate = Integer.parseInt(refreshrate.getText());
+					  }
+					catch (NumberFormatException e) {
+					    return false;
+					  }
+					client.setRefreshrate(Refreshrate);
+					return true;
+				}
+				else
+					return false;
+			}	
 		});
 		
 		JButton cancelButton = new JButton("Cancel");
