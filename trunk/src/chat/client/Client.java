@@ -1,13 +1,8 @@
 package chat.client;
 import java.rmi.Naming;
-import java.util.Timer;
-//import java.rmi.registry.LocateRegistry;
-//import java.rmi.registry.Registry;
 import chat.MessageServerInterface;
 
 public class Client {
-	//private static String clientID;
-	//"obj" is the reference of the remote object
 	private MessageServerInterface obj = null;
 	
 	private String username;
@@ -78,7 +73,7 @@ public class Client {
 			System.setSecurityManager(new SecurityManager());
 		}
 		
-		Client client = new Client();
+		new Client();
 		
 	}
 
