@@ -12,7 +12,7 @@ public class ClientGUI extends JPanel{
 	protected JTextArea chatHistory;
 	protected JTextArea chatInput;
 	protected JPanel panel;
-	protected static Client client = new Client();
+	protected static Client client;
 	private Timer timer;
 	
 	//Constructor of the GUI
@@ -41,6 +41,8 @@ public class ClientGUI extends JPanel{
         JScrollPane scrollerChatHistory = new JScrollPane(chatHistory);
         JScrollPane scrollerChatInput = new JScrollPane(chatInput);
         
+        client = new Client();
+        client.setTimeout(5000);
         timer = new Timer();
 		timer.scheduleAtFixedRate(new getMessage(), 0, client.getTimeout());
         
