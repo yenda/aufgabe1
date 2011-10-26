@@ -38,20 +38,21 @@ public class ListMessages {
 			//Last message is on the server, the client only receive the new ones
 			else{
 				index = this.listMessages.indexOf(new Message(lastMessageID,"","",""));
-			
+			}
 			if (index >= 0){
 				for (;index > this.listMessages.size() ; index++){
-						messages += this.listMessages.get(lastMessageID).messageToString(); 
-						messages += "\n";
+					messages += this.listMessages.get(lastMessageID).messageToString(); 
+					messages += "\n";
+					Server.logInput("- message number  " + index);
 				}
 				messages = messages.substring(0, -2);
 				return messages;
-				}
 			}
 		}
 		//The client already received the last messages or there is no messages on the server
+		Server.logInput("- no message");
 		throw new RemoteException();
-}
+	}
 	
 	/**
 	 * Add the message to the list and delete the oldest if the size of the list attained the limit
@@ -61,8 +62,10 @@ public class ListMessages {
 	 * 
 	 **/
 	public void dropMessage(int messageID, String clientID, String message){
-		listMessages.add(new Message(messageID, clientID, message, ((new Date()).toString())));
+		this.listMessages.add(new Message(messageID, clientID, message, ((new Date()).toString())));
+		Server.logInput("Message dropped : "+this.listMessages.get(messageID).messageToString());
 		if (this.listMessages.size() > Server.MAX_MESSAGES){
+			Server.logInput("Limit exceeded, message deleted : "+this.listMessages.get(0).messageToString());
 			this.listMessages.remove(0);
 		}
 	}
