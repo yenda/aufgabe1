@@ -115,7 +115,6 @@ public class Settings extends JDialog {
 		JButton okButton = new JButton("OK");
 		
 		okButton.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Récupérer valeurs saisies?
 				setVisible(false);
