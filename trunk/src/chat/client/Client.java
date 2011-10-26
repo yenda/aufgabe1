@@ -7,8 +7,39 @@ import chat.MessageServerInterface;
 public class Client {
 	//private static String clientID;
 	//"obj" is the reference of the remote object
-	MessageServerInterface obj = null;
+	private MessageServerInterface obj = null;
 	
+	private String username;
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	private String server;
+	public String getServer() {
+		return server;
+	}
+	public void setServer(String server) {
+		this.server = server;
+	}
+	
+	private int timeout;
+	public int getTimeout() {
+		return timeout;
+	}
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
+	
+	private int refreshrate;
+	public int getRefreshrate() {
+		return refreshrate;
+	}
+	public void setRefreshrate(int refreshrate) {
+		this.refreshrate = refreshrate;
+	}
 	public String getMessage(String clientID)
 	{
 		try {
@@ -46,6 +77,7 @@ public class Client {
 		}
 		
 		Client client = new Client();
+		
 	}
 
 }
