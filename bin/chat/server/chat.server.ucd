@@ -61,19 +61,19 @@
     <children xsi:type="editmodel:CompartmentEditModel"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="Server" location="54,213" size="186,157" id="chat.server/Server">
+  <children xsi:type="editmodel:ClassEditModel" name="Server" location="54,213" size="186,157" id="chat.server/Server1">
     <children xsi:type="editmodel:CompartmentEditModel" size="163,36">
-      <children xsi:type="editmodel:AttributeEditModel" name="mAX_CLIENT_IDLE_TIME" id="chat.server/Server#mAX_CLIENT_IDLE_TIME"/>
-      <children xsi:type="editmodel:AttributeEditModel" name="mAX_MESSAGES" id="chat.server/Server#mAX_MESSAGES"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mAX_CLIENT_IDLE_TIME" id="chat.server/Server1#mAX_CLIENT_IDLE_TIME"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mAX_MESSAGES" id="chat.server/Server1#mAX_MESSAGES"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="96,72">
-      <children xsi:type="editmodel:MethodEditModel" name="Server" id="chat.server/Server#Server()"/>
-      <children xsi:type="editmodel:MethodEditModel" name="dropMessage" id="chat.server/Server#dropMessage(Ljava.lang.String;Ljava.lang.String;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="getMessage" id="chat.server/Server#getMessage(Ljava.lang.String;)"/>
-      <children xsi:type="editmodel:MethodEditModel" name="main" id="chat.server/Server#main([Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="Server" id="chat.server/Server1#Server1()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="dropMessage" id="chat.server/Server1#dropMessage(Ljava.lang.String;Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMessage" id="chat.server/Server1#getMessage(Ljava.lang.String;I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="main" id="chat.server/Server1#main([Ljava.lang.String;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel"/>
-    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="chat/MessageServerInterface&lt;-chat.server/Server" source="//@children.3" target="//@children.2" targetEnd="//@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="chat/MessageServerInterface&lt;-chat.server/Server1" source="//@children.3" target="//@children.2" targetEnd="//@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.3/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
       <children xsi:type="editmodel:AssociationEndEditModel" location="93,0" attachSource="true"/>
       <children xsi:type="editmodel:AssociationEndEditModel" location="97,113"/>
     </sourceConnections>

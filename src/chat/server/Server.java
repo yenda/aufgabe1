@@ -15,7 +15,7 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 	public static final int MAX_MESSAGES = 100;
 	public static final long MAX_CLIENT_IDLE_TIME = 100;
 	
-	private Clients listClients;
+	private ListClients listClients;
 	/**
 	 * @uml.property  name="listMessages"
 	 * @uml.associationEnd  
@@ -23,16 +23,17 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 	private Messages listMessages;
 	private int messageID;
 
+	
 	//Interface implementation
 	public Server() throws RemoteException{
-		listClients = new Clients();
+		listClients = new ListClients();
 		listMessages = new Messages();
 		messageID = 1;
 		
 	}
 	
-	public String getMessage(String clientID, int messageID) throws RemoteException {
-		return listClients.getMessage(clientID);
+	public String getMessage(String clientID) throws RemoteException {
+		return listClients.getMessage(clientID, messageID);
 	}
 
 	public void dropMessage(String clientID, String message) throws RemoteException {
@@ -42,6 +43,8 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 	
 	/*** main ***/
 	public static void main (String[] args) {
+		
+		
 		
 		if (System.getSecurityManager() == null) { //without a security manager, RMI doesn't download classes
 		    System.setSecurityManager(new SecurityManager());
@@ -57,11 +60,13 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 		
 		try {
 			MessageServerInterface chatServer = new Server();
-			MessageServerInterface stub = (MessageServerInterface) UnicastRemoteObject.exportObject(chatServer, 0);
-			Naming.rebind("", chatServer);
+			//MessageServerInterface stub = (MessageServerInterface) UnicastRemoteObject.exportObject(chatServer, 0);
+			Naming.rebind("Server", chatServer);
 		} catch (Exception ex) {
 			System.err.println("RMI server exception:" + ex);
 			ex.printStackTrace();
 		}
 	}
+
+	
 }
