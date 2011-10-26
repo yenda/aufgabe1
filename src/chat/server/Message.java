@@ -1,21 +1,10 @@
 package chat.server;
 
 public class Message {
-	/**
-	 * @uml.property  name="messageID"
-	 */
+	
 	private int messageID;
-	/**
-	 * @uml.property  name="clientID"
-	 */
 	private String clientID;
-	/**
-	 * @uml.property  name="message"
-	 */
 	private String message;
-	/**
-	 * @uml.property  name="timestamp"
-	 */
 	private String timestamp;
 	
 	public Message(int messageID, String clientID, String message, String date){
@@ -38,38 +27,27 @@ public class Message {
 		return message;
 	}
 
-	/**
-	 * @return
-	 * @uml.property  name="messageID"
-	 */
+	
+	/*******Getters*******/
 	public int getMessageID() {
 		return messageID;
 	}
 
-	/**
-	 * @return
-	 * @uml.property  name="clientID"
-	 */
+	
 	public String getClientID() {
 		return clientID;
 	}
 
-	/**
-	 * @return
-	 * @uml.property  name="message"
-	 */
+	
 	public String getMessage() {
 		return message;
 	}
 
-	/**
-	 * @return
-	 * @uml.property  name="timestamp"
-	 */
 	public String getTimestamp() {
 		return timestamp;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
