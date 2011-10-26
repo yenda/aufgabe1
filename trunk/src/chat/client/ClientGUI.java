@@ -11,7 +11,7 @@ public class ClientGUI extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
 	protected JButton sendButton;
-	protected JTextArea chatHistory;
+	protected static JTextArea chatHistory;
 	protected JTextArea chatInput;
 	protected JPanel panel;
 	private static SettingsGUI settings = new SettingsGUI();
@@ -135,13 +135,10 @@ public class ClientGUI extends JPanel{
     //call the getMessage method according to the refreshrate
     public static class getMessage extends TimerTask{
 		public void run(){
-			try {
-				client.getMessage(client.getClientID());
-				System.out.println(System.currentTimeMillis()/1000);
-			}catch(NullPointerException e)
-			{
-				System.out.println("Exception: "+ e);
-			}
+			String allHistory=chatHistory.getText();
+			allHistory+=client.getMessage(client.getClientID());
+			chatHistory.setText(allHistory);
+			System.out.println(System.currentTimeMillis()/1000);
 		}
     }
     
