@@ -2,15 +2,25 @@ package chat.client;
 import java.rmi.Naming;
 import chat.MessageServerInterface;
 
+import java.util.Timer;
+
 /**
  * @author Laurine and Eric
  */
 public class Client {
+	public static Timer timer;	
+
 	public Client (String clientID, String server, int timeout, int refreshrate){
 		this.clientID = clientID;
 		this.server = server;
 		this.timeout = timeout;
 		this.refreshrate = refreshrate;
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new ClientGUI.getMessage(), 0, this.refreshrate);	
+	}
+	
+	public static void killTimer(){
+		
 	}
 	private MessageServerInterface obj = null;
 	
