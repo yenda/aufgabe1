@@ -61,11 +61,11 @@ public class Server implements MessageServerInterface {
         logInput(input);
 	}
 	
-	public String getMessage (String clientID) throws RemoteException {
+	public synchronized String getMessage (String clientID) throws RemoteException {
 		return listMessages.getMessage(listClients.updateClient(clientID, messageID));
 	}
 
-	public void dropMessage (String clientID, String message) throws RemoteException {
+	public synchronized void dropMessage (String clientID, String message) throws RemoteException {
 		 listMessages.dropMessage(this.messageID, clientID, message);
 		 messageID++;
 	}
@@ -93,7 +93,7 @@ public class Server implements MessageServerInterface {
 	/*** main ***/
 	public static void main (String[] args) throws RemoteException{
         try {
-            Server server = new Server();
+            new Server();
         } catch (Exception e) {
             System.err.println("server lauch failed:");
             e.printStackTrace();
