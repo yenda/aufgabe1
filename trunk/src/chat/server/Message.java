@@ -18,7 +18,7 @@ public class Message {
 	 */
 	private String timestamp;
 	
-	public Message(int messageID, String clientID, String message, String date ){
+	public Message(int messageID, String clientID, String message, String date){
 		this.messageID = messageID;
 		this.clientID = clientID;
 		this.message = message;
