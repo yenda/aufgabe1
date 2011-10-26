@@ -1,6 +1,7 @@
 package chat.client;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 //Box settings
@@ -97,7 +98,7 @@ public class Settings extends JDialog {
 		panRefreshrate.setPreferredSize(new Dimension(220, 60));
 		refreshrate = new JTextField();
 		refreshrate.setPreferredSize(new Dimension(100, 25));
-		panRefreshrate.setBorder(BorderFactory.createTitledBorder("Refresh rate"));
+		panRefreshrate.setBorder(BorderFactory.createTitledBorder("Refresh rate :"));
 		refreshRateLabel = new JLabel("Refresh rate");
 		panRefreshrate.add(refreshRateLabel);
 		panRefreshrate.add(refreshrate);
@@ -111,12 +112,27 @@ public class Settings extends JDialog {
 		content.add(panRefreshrate);
 		
 		JPanel control = new JPanel();
-		JButton okBouton = new JButton("OK");
+		JButton okButton = new JButton("OK");
 		
-		JButton cancelBouton = new JButton("Annuler");
+		okButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Récupérer valeurs saisies?
+				setVisible(false);
+				
+			}
+			
+		});
+		
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);	
+			}
+		});
 
-		control.add(okBouton);
-		control.add(cancelBouton);
+		control.add(okButton);
+		control.add(cancelButton);
 
 		this.getContentPane().add(content, BorderLayout.CENTER);
 		this.getContentPane().add(control, BorderLayout.SOUTH);
