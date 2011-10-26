@@ -68,7 +68,7 @@ public class ClientGUI extends JPanel{
 
 			public void actionPerformed(ActionEvent arg0) {
 				Settings settings = new Settings(null, "Settings", false);
-				SettingsInfo sInfo = settings.showSetdialog(); 
+				settings.showSetdialog(); 
 			}
         });
         
