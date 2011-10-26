@@ -19,10 +19,10 @@ import chat.MessageServerInterface;
  */
 public class Server implements MessageServerInterface { 
 
-	public static final int MAX_MESSAGES = 100;
+	public static final int MAX_MESSAGES = 10;
 	public static final long MAX_CLIENT_IDLE_TIME = 100;
 	public static final int PORT = Registry.REGISTRY_PORT;
-	
+		
 	private Timer timer;
 	private Registry registry;
 	
@@ -32,7 +32,7 @@ public class Server implements MessageServerInterface {
 	private int messageID;
 	
 	private String logfile;
-	private FileWriter fw;
+	private static FileWriter fw;
 
 	
 	//Interface implementation
@@ -62,15 +62,17 @@ public class Server implements MessageServerInterface {
 	}
 	
 	public synchronized String getMessage (String clientID) throws RemoteException {
+		logInput(clientID+" received : ");	
 		return listMessages.getMessage(listClients.updateClient(clientID, messageID));
 	}
 
 	public synchronized void dropMessage (String clientID, String message) throws RemoteException {
 		 listMessages.dropMessage(this.messageID, clientID, message);
 		 messageID++;
+		 
 	}
 
-	public synchronized void logInput (String input){
+	public static synchronized void logInput (String input){
 		try{
 			input = new Date().toString() + " : " + input + "\n";
 			fw.write(input);
@@ -92,7 +94,10 @@ public class Server implements MessageServerInterface {
 	
 	/*** main ***/
 	public static void main (String[] args) throws RemoteException{
-        try {
+        
+		
+		
+		try {
             new Server();
         } catch (Exception e) {
             System.err.println("server lauch failed:");
