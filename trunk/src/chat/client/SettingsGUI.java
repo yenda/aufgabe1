@@ -1,9 +1,6 @@
 package chat.client;
 
 import javax.swing.*;
-
-import chat.client.ClientGUI.getMessage;
-
 import java.awt.event.*;
 import java.awt.*;
 import java.util.Timer;
