@@ -5,49 +5,52 @@ import java.util.ArrayList;
  * @author Eric
  */
 public class ListClients {
-	private ArrayList<Client> listClients;
+	private ArrayList<ClientData> listClients;
 	
 	public ListClients (){
-		listClients = new ArrayList<Client>(); 
+		listClients = new ArrayList<ClientData>(); 
 	}
 	
 	/**
 	 * @return the listClients
 	 */
-	public ArrayList<Client> getListClients() {
+	public ArrayList<ClientData> getListClients() {
 		return listClients;
 	}
 
 
-
-	public String getMessage (String clientID, int messageID){
-		int lastMessageID = this.updateClient(clientID, messageID);
-		
-		return "kill";
-	}
-	
+	/**
+	 * @param String clientID : ID of the client
+	 * @param int messageID : ID of the last message sent to the server
+	 * @return the ID of the last message the client received
+	 * or the last message sent to the server if it's a new client
+	 */	
 	public int updateClient(String clientID, int messageID){
-		Client client = new Client(clientID,messageID, System.currentTimeMillis());
-		if (this.isNewClient(client)){
+		ClientData client = new ClientData(clientID,messageID, System.currentTimeMillis()+(Server.MAX_CLIENT_IDLE_TIME*1000));
+		int index = this.listClients.indexOf(client);
+		if (index == -1){
 			this.addClient(client);
 			return messageID;
 		}
 		else{
-			int i = this.listClients.indexOf(client);
-			int lastMessageID = this.listClients.get(i).getLastMessageID();
+			int lastMessageID = this.listClients.get(index).getLastMessageID();
 			client.setLastMessageID(lastMessageID);
-			this.listClients.set(i, client);
+			this.listClients.set(index, client);
 			return lastMessageID;
 		}
 	}
 	
-	public boolean isNewClient (Client client){;
-		return !listClients.contains(client);
-	}
-	
-	public void addClient (Client client){
+	public void addClient (ClientData client){
 		listClients.add(client);
 	}
 	
+	public void cleanUp (ClientData client){
+		long timestamp = System.currentTimeMillis();
+		for (int i = 0; i < this.listClients.size();i++){
+			if (this.listClients.get(i).getExpiration() < timestamp){
+				this.listClients.remove(i);
+			}
+		}
+	}
 
 }
