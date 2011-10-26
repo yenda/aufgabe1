@@ -4,6 +4,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 import chat.MessageServerInterface;
 
@@ -12,11 +15,12 @@ import chat.MessageServerInterface;
  */
 @SuppressWarnings("serial")
 public class Server extends UnicastRemoteObject implements MessageServerInterface { 
-	
-	private Registry registry;
+
 	public static final int MAX_MESSAGES = 100;
 	public static final long MAX_CLIENT_IDLE_TIME = 100;
+	public static final int PORT = Registry.REGISTRY_PORT;
 	
+	private Timer timer;
 	private ListClients listClients;
 	/**
 	 * @uml.property  name="listMessages"
@@ -28,10 +32,12 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 	
 	//Interface implementation
 	public Server() throws RemoteException{
+		super();
 		listClients = new ListClients();
 		listMessages = new ListMessages();
 		messageID = 1;
-		
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new cleanUpClientList(), 5000, 5000);
 	}
 	
 	public String getMessage (String clientID) throws RemoteException {
@@ -43,6 +49,13 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
 		 messageID++;
 	}
 
+	class cleanUpClientList extends TimerTask{
+		public void run(){
+			listClients.cleanUp();
+			System.out.println("Nettoyage effectué");
+		}
+	}
+
 	
 	/*** main ***/
 	public static void main (String[] args) {
@@ -50,17 +63,16 @@ public class Server extends UnicastRemoteObject implements MessageServerInterfac
             System.setSecurityManager(new SecurityManager());
         }
         try {
-            String name = "Compute";
             Server server = new Server();
-            Server stub =
-                (Server) UnicastRemoteObject.exportObject(server, 0);
-            Registry registry = LocateRegistry.getRegistry();
-            registry.rebind(name, stub);
+            Registry registry = LocateRegistry.createRegistry(PORT);
+            UnicastRemoteObject.unexportObject(server, true);
+            registry.rebind("chatServer", (MessageServerInterface) UnicastRemoteObject.exportObject(server, 0));
             System.out.println("server bound");
         } catch (Exception e) {
             System.err.println("server exception:");
             e.printStackTrace();
         }
+
 	}
 
 	

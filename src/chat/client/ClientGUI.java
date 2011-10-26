@@ -1,12 +1,12 @@
 package chat.client;
 
 import java.awt.event.*;
-
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class ClientGUI extends JPanel{
 	
+	protected Client client = new Client();
 	protected JButton sendButton;
 	protected JTextArea chatHistory;
 	protected JTextArea chatInput;
@@ -97,6 +97,7 @@ public class ClientGUI extends JPanel{
 	
 	//TO MODIFY AND REPLACE BY THE REMOTE METHOD
 	public void dropMessage(){
+		//client.dropMessage(clientID, message);
 		chatHistory.append(chatInput.getText());
 		chatInput.setText("");
 	}
