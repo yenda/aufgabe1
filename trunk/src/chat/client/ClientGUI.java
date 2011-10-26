@@ -1,8 +1,13 @@
 package chat.client;
 
 import java.awt.event.*;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.TimerTask;
 import javax.swing.*;
+
+import chat.MessageServerInterface;
+
 
 /**
  * @author Laurine and Eric
@@ -16,6 +21,10 @@ public class ClientGUI extends JPanel{
 	protected JPanel panel;
 	private static SettingsGUI settings = new SettingsGUI();
 	private static Client client;
+	
+	public static MessageServerInterface serverMsg = null;
+	public static Registry reg = null;
+	public static final int PORT = Registry.REGISTRY_PORT;
 		
 	public static void setClient(Client client) {
 		ClientGUI.client = client;
@@ -109,11 +118,6 @@ public class ClientGUI extends JPanel{
         frame.setVisible(true);
 	}
 	
-
-	public void dropMessage(){
-		client.dropMessage(client.getClientID(), chatInput.getText());
-	}
-	
 	//Call the method dropMessage() when the action is performed
     private class sendButtonListener implements ActionListener {
     	public void actionPerformed(ActionEvent event){
@@ -142,12 +146,24 @@ public class ClientGUI extends JPanel{
 		}
     }
     
+	public void dropMessage(){
+		client.dropMessage(client.getClientID(), chatInput.getText());
+	}
+    
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {				 
                 createAndShowGUI();
+                try {
+                reg = LocateRegistry.getRegistry(client.getServer(), PORT);               
+                serverMsg = (MessageServerInterface) reg.lookup("chatServer");
+                } catch (Exception e) {
+        			System.err.println("Rmi Client exception: " + e);
+        			e.printStackTrace();       			
+        			System.out.println(e.getMessage());
+        		}
             }
         });
     }
