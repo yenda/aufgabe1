@@ -2,6 +2,7 @@ package chat.server;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author  Eric
@@ -36,7 +37,7 @@ public class ListMessages {
 				index = 0;
 			//Last message is on the server, the client only receive the new ones
 			else{
-				index = this.listMessages.indexOf(new Message(lastMessageID,"","",0));
+				index = this.listMessages.indexOf(new Message(lastMessageID,"","",""));
 			
 			if (index >= 0){
 				for (;index > this.listMessages.size() ; index++){
@@ -60,7 +61,7 @@ public class ListMessages {
 	 * 
 	 **/
 	public void dropMessage(int messageID, String clientID, String message){
-		listMessages.add(new Message(messageID, clientID, message, System.currentTimeMillis()));
+		listMessages.add(new Message(messageID, clientID, message, ((new Date()).toString())));
 		if (this.listMessages.size() > Server.MAX_MESSAGES){
 			this.listMessages.remove(0);
 		}
