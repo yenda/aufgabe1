@@ -5,16 +5,15 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.Timer;
 
-//Box settings
+/**
+ * @author Laurine and Eric
+ */
 public class SettingsGUI extends JDialog {
 	
-	/**
-	 * @author Laurine
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JLabel usernameLabel, serverLabel, timeoutLabel, refreshRateLabel;
 	private JTextField username, server, timeout, refreshrate;
-	private Client client;
 
 	/**
 	 * Builder
@@ -22,17 +21,15 @@ public class SettingsGUI extends JDialog {
 	 * @param title
 	 * @param modal
 	 */
-	public SettingsGUI(JFrame fromFrame, String title, boolean modal, Client client){
+	public SettingsGUI(){
 		//builder JDialog
-		super(fromFrame, title, modal);
+		super((JFrame)null, "Settings", false);
 		//size
 		this.setSize(300, 400);
 		//position
 		this.setLocationRelativeTo(null);
 		//not resizable
-		this.setResizable(false);
-		this.client=client;
-		
+		this.setResizable(false);		
 		this.setVisible(true);
 	}
 	
@@ -106,7 +103,6 @@ public class SettingsGUI extends JDialog {
 		
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Récupérer valeurs saisies?
 				if((getUsername()) && (getServer()) && (getTimeout()) && (getRefreshrate())){
 					ClientGUI.timer = new Timer();
 		            ClientGUI.timer.scheduleAtFixedRate(new ClientGUI.getMessage(), 0, client.getRefreshrate());
