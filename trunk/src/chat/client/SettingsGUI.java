@@ -1,8 +1,12 @@
 package chat.client;
 
 import javax.swing.*;
+
+import chat.client.ClientGUI.getMessage;
+
 import java.awt.event.*;
 import java.awt.*;
+import java.util.Timer;
 
 //Box settings
 public class SettingsGUI extends JDialog {
@@ -106,8 +110,11 @@ public class SettingsGUI extends JDialog {
 		okButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Récupérer valeurs saisies?
-				if((getUsername()) && (getServer()) && (getTimeout()) && (getRefreshrate()))
+				if((getUsername()) && (getServer()) && (getTimeout()) && (getRefreshrate())){
+					ClientGUI.timer = new Timer();
+		            ClientGUI.timer.scheduleAtFixedRate(new ClientGUI.getMessage(), 0, client.getRefreshrate());
 					setVisible(false);
+				}
 				else
 					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
 			}

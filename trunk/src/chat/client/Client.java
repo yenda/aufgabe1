@@ -1,5 +1,6 @@
 package chat.client;
 import java.rmi.Naming;
+import java.util.Timer;
 //import java.rmi.registry.LocateRegistry;
 //import java.rmi.registry.Registry;
 import chat.MessageServerInterface;
@@ -40,6 +41,7 @@ public class Client {
 	public void setRefreshrate(int refreshrate) {
 		this.refreshrate = refreshrate;
 	}
+	
 	public String getMessage(String clientID)
 	{
 		try {

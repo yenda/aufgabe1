@@ -12,8 +12,8 @@ public class ClientGUI extends JPanel{
 	protected JTextArea chatHistory;
 	protected JTextArea chatInput;
 	protected JPanel panel;
-	protected static Client client;
-	private Timer timer;
+	protected static Client client=new Client();
+	public static Timer timer;
 	
 	//Constructor of the GUI
 	private ClientGUI(){
@@ -40,11 +40,6 @@ public class ClientGUI extends JPanel{
         //Put the chatHistory and chatInput textAreas in scroll panes.
         JScrollPane scrollerChatHistory = new JScrollPane(chatHistory);
         JScrollPane scrollerChatInput = new JScrollPane(chatInput);
-        
-        client = new Client();
-        client.setTimeout(5000);
-        timer = new Timer();
-		timer.scheduleAtFixedRate(new getMessage(), 0, client.getTimeout());
         
         panel.add(scrollerChatInput);
 		panel.add(sendButton);
@@ -97,7 +92,16 @@ public class ClientGUI extends JPanel{
         ClientGUI newContentPane = new ClientGUI();
         newContentPane.setOpaque(true); //content panes must be opaque
         frame.setContentPane(newContentPane);      
-				
+		
+        try {
+    		timer = new Timer();
+            timer.scheduleAtFixedRate(new getMessage(), 0, client.getRefreshrate());
+    	}catch(IllegalArgumentException e)
+    	{
+    		timer = new Timer();
+            timer.scheduleAtFixedRate(new getMessage(), 0, 5000);
+    	}
+        
         //Display the window.
         frame.pack();
         frame.setVisible(true);
@@ -128,12 +132,18 @@ public class ClientGUI extends JPanel{
 		public void keyTyped(KeyEvent e) {}
     }
     
-    class getMessage extends TimerTask{
+    //call the getMessage method according to the refreshrate
+    public static class getMessage extends TimerTask{
 		public void run(){
-			client.getMessage(client.getUsername());
-			System.out.println("Messages reçus");
+			try {
+				client.getMessage(client.getUsername());
+				System.out.println("Messages updated");
+			}catch(NullPointerException e)
+			{
+				System.out.println("Exception: "+ e);
+			}
 		}
-	}
+    }
     
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
