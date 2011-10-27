@@ -68,7 +68,7 @@ public class Server implements MessageServerInterface {
 
 	public synchronized void dropMessage (String clientID, String message) throws RemoteException {
 		 listMessages.dropMessage(this.messageID, clientID, message);
-		 messageID++;
+		 this.messageID++;
 		 
 	}
 
