@@ -3,73 +3,60 @@ package chat.client;
 
 import chat.MessageServerInterface;
 
-import java.rmi.Naming;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.RemoteException;
 import java.util.Timer;
+
+import javax.swing.JOptionPane;
 
 /**
  * @author Laurine and Eric
  */
 public class Client {
-	public static Timer timer;	
-
-	public Client (String clientID, String server, int timeout, int refreshrate){
-		this.clientID = clientID;
-		this.server = server;
-		this.timeout = timeout;
-		this.refreshrate = refreshrate;
-		timer = new Timer();
-		timer.scheduleAtFixedRate(new ClientGUI.getMessage(), 0, this.refreshrate);	
-	}
+	public static Timer timerRefrehRate;
+	public static Timer timerTimeout;
 	
-	public static void killTimer(){
-		
-	}
-
-	
-	private String clientID;
-	public String getClientID() {
-		return clientID;
-	}
-
-	private String server;
-	public String getServer() {
-		return server;
-	}
-
-	private int timeout;
-	public int getTimeout() {
-		return timeout;
-	}
+	public static MessageServerInterface serverMsg = null;
+	public static Registry reg = null;
+	public static final int PORT = Registry.REGISTRY_PORT;
 	
 	
-	private int refreshrate;
-	public int getRefreshrate() {
-		return refreshrate;
-	}
-	
-	public String getMessage(String clientID)
+	public static String getMessage(String clientID)
 	{
 		try {
-			ClientGUI.serverMsg = (MessageServerInterface)Naming.lookup("Server");
-			return ClientGUI.serverMsg.getMessage(clientID);
-		} catch (Exception e) {
-			System.err.println("Rmi Client exception: " + e);
-			e.printStackTrace();
-			
+			return Client.serverMsg.getMessage(clientID);
+		} catch (Exception e) {			
 			return e.getMessage();
 		}
 	}
 	
-	public void dropMessage(String clientID, String message)
+	public static void launchTimerRefreshRate(){
+		try{
+	    	Client.timerRefrehRate.cancel();
+	    }catch (NullPointerException e){
+	    	Client.timerRefrehRate = new Timer();
+	    	Client.timerRefrehRate.scheduleAtFixedRate(new ClientGUI.getMessage(), 0, SettingsGUI.getRefreshrate()*1000);
+	    }
+	}
+	
+	public static void dropMessage(String clientID, String message)
 	{
 		try {
-			ClientGUI.serverMsg = (MessageServerInterface)Naming.lookup("Server");
-			ClientGUI.serverMsg.dropMessage(clientID,message);
+			Client.serverMsg.dropMessage(clientID,message);
 		} catch (Exception e) {
-			System.err.println("Rmi Client exception: " + e);
-			e.printStackTrace();
-			
-			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "Call of function dropMessage failed", "error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	public static void connexionServer() throws RemoteException, NotBoundException, AccessException{
+        reg = LocateRegistry.getRegistry(SettingsGUI.getServer(), PORT);               
+        Client.serverMsg = (MessageServerInterface) reg.lookup("chatServer");
+	}
+	
+    public static void main(String[] args) {
+        ClientGUI.createAndShowGUI();	
+    }
 }

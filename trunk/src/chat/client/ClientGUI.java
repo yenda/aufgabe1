@@ -1,12 +1,9 @@
 package chat.client;
 
 import java.awt.event.*;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.TimerTask;
 import javax.swing.*;
 
-import chat.MessageServerInterface;
 
 
 /**
@@ -19,16 +16,8 @@ public class ClientGUI extends JPanel{
 	protected static JTextArea chatHistory;
 	protected JTextArea chatInput;
 	protected JPanel panel;
-	private static SettingsGUI settings = new SettingsGUI();
-	private static Client client;
 	
-	public static MessageServerInterface serverMsg = null;
-	public static Registry reg = null;
-	public static final int PORT = Registry.REGISTRY_PORT;
-		
-	public static void setClient(Client client) {
-		ClientGUI.client = client;
-	}
+	public static SettingsGUI settings;	
 
 	//Constructor of the GUI
 	private ClientGUI(){
@@ -96,26 +85,32 @@ public class ClientGUI extends JPanel{
     }
 	
 	//Create and show the GUI
-	private static void createAndShowGUI(){
-		
-		//Create and set up the window.
-		JFrame frame = new JFrame("Message of the Day");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//Create and set up the menu bar.
-        frame.setJMenuBar(createMenuBar());
-		
-        //Create and set up the content pane.
-        ClientGUI newContentPane = new ClientGUI();
-        newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);      
-		
-        //Display the dialog window
-        settings.showSetdialog();
-        
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
+	public static void createAndShowGUI(){
+        //Schedule a job for the event-dispatching thread:
+        //creating and showing this application's GUI.
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {	
+				//Create and set up the window.
+				JFrame frame = new JFrame("Message of the Day");
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
+				//Create and set up the menu bar.
+		        frame.setJMenuBar(createMenuBar());
+				
+		        //Create and set up the content pane.
+		        ClientGUI newContentPane = new ClientGUI();
+		        newContentPane.setOpaque(true); //content panes must be opaque
+		        frame.setContentPane(newContentPane); 
+
+		        //Display the dialog window
+		        settings = new SettingsGUI();	
+		        settings.showSetdialog();
+		        
+		        //Display the window.
+		        frame.pack();
+		        frame.setVisible(true);
+            }
+        });
 	}
 	
 	//Call the method dropMessage() when the action is performed
@@ -137,36 +132,16 @@ public class ClientGUI extends JPanel{
     }
     
     //call the getMessage method according to the refreshrate
-    public static class getMessage extends TimerTask{
+    static class getMessage extends TimerTask{
 		public void run(){
 			String allHistory=chatHistory.getText();
-			allHistory+=client.getMessage(client.getClientID());
+			allHistory+=Client.getMessage(SettingsGUI.getClientID());
 			chatHistory.setText(allHistory);
-			System.out.println(System.currentTimeMillis()/1000);
 		}
     }
     
 	public void dropMessage(){
-		client.dropMessage(client.getClientID(), chatInput.getText());
+		Client.dropMessage(SettingsGUI.getClientID(), chatInput.getText());
+		chatInput.setText("");
 	}
-    
-    public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {				 
-                createAndShowGUI();
-                try {
-                reg = LocateRegistry.getRegistry(client.getServer(), PORT);               
-                serverMsg = (MessageServerInterface) reg.lookup("chatServer");
-                } catch (Exception e) {
-        			System.err.println("Rmi Client exception: " + e);
-        			e.printStackTrace();       			
-        			System.out.println(e.getMessage());
-        		}
-            }
-        });
-    }
-    
-    
  }
