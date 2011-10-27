@@ -62,7 +62,7 @@ public class Server implements MessageServerInterface {
 	}
 	
 	public synchronized String getMessage (String clientID) throws RemoteException {
-		logInput(clientID+" received : ");	
+		logInput(clientID+" received : ");
 		return listMessages.getMessage(listClients.updateClient(clientID, messageID));
 	}
 

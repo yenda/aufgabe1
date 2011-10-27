@@ -40,18 +40,18 @@ public class ListMessages {
 				index = this.listMessages.indexOf(new Message(lastMessageID,"","",""));
 			}
 			if (index >= 0){
-				for (;index > this.listMessages.size() ; index++){
+				for (;index < this.listMessages.size() ; index++){
 					messages += this.listMessages.get(lastMessageID).messageToString(); 
 					messages += "\n";
 					Server.logInput("- message number  " + index);
 				}
-				messages = messages.substring(0,-2);
+				//messages = messages.substring(0,-2);
 				return messages;
 			}
 		}
 		//The client already received the last messages or there is no messages on the server
 		Server.logInput("- no message");
-		throw new RemoteException();
+		throw new RemoteException("no more messages");
 	}
 	
 	/**
