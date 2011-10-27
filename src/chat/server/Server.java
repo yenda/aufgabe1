@@ -40,7 +40,7 @@ public class Server implements MessageServerInterface {
 		super();
 		this.listClients = new ListClients();
 		this.listMessages = new ListMessages();
-		this.messageID = 1;
+		this.messageID = 0;
 		this.timer = new Timer();
 		this.timer.scheduleAtFixedRate(new cleanUpClientList(), 10000, 10000);
 		this.logfile = "log.txt";

@@ -134,14 +134,14 @@ public class ClientGUI extends JPanel{
     //call the getMessage method according to the refreshrate
     static class getMessage extends TimerTask{
 		public void run(){
-			String allHistory=chatHistory.getText();
-			allHistory+=Client.getMessage();
+			String allHistory=chatHistory.getText()+" ";
+			allHistory+=Client.getMessage() + "\n";
 			chatHistory.setText(allHistory);
 		}
     }
     
 	public void dropMessage(){
 		Client.dropMessage(chatInput.getText());
-		chatInput.setText("");
+		chatInput.setText(" ");
 	}
  }

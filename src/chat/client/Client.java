@@ -19,9 +19,19 @@ public class Client {
 	public static Timer timerRefrehRate;
 	public static Timer timerTimeout;
 	
-	public static MessageServerInterface serverMsg = null;
+	public static MessageServerInterface serverMsg;
 	public static Registry reg = null;
 	public static final int PORT = Registry.REGISTRY_PORT;
+	
+	
+	public static String getMessage(String clientID)
+	{
+		try {
+			return serverMsg.getMessage(clientID);
+		} catch (Exception e) {			
+			return "Exception in getMessage: " + e.getMessage();
+		}
+	}
 	
 	public static void launchTimerRefreshRate(){
 		try{
@@ -32,12 +42,12 @@ public class Client {
 	    }
 	}
 	
-	public static String getMessage()
+	public static synchronized String getMessage()
 	{
 		try {
 			return Client.serverMsg.getMessage(SettingsGUI.getClientID());
 		} catch (RemoteException e) {
-			return "";
+			return "Exception in Client.getMessage" + e;
 		}
 	}
 	
@@ -46,12 +56,14 @@ public class Client {
 		try {
 			Client.serverMsg.dropMessage(SettingsGUI.getClientID(),message);
 		} catch (Exception e) {
-			//JOptionPane.showMessageDialog(null, "Call of function dropMessage failed", "error", JOptionPane.ERROR_MESSAGE);
+
+			JOptionPane.showMessageDialog(null, "Call of function dropMessage failed", "error", JOptionPane.ERROR_MESSAGE);
+
 		}
 	}
 	
 	public static void connexionServer() throws RemoteException, NotBoundException, AccessException{
-        reg = LocateRegistry.getRegistry(SettingsGUI.getServer(), PORT);               
+        reg = LocateRegistry.getRegistry(SettingsGUI.getServer(), PORT);
         Client.serverMsg = (MessageServerInterface) reg.lookup("chatServer");
 	}
 	
