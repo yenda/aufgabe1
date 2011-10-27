@@ -26,7 +26,7 @@ public class ListMessages {
 	 * @return a string containing all the messages sent to the server after the last one the client got
 	 * @throws an exception "no more message" when there is no new messages for the client
 	 */
-	public String getMessage(int lastMessageID)throws RemoteException{
+	public String getMessage(int lastMessageID) throws RemoteException{
 		String messages = "";
 		int indexOf;
 		int listSize = this.listMessages.size();
