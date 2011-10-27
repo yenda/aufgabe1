@@ -135,13 +135,13 @@ public class ClientGUI extends JPanel{
     static class getMessage extends TimerTask{
 		public void run(){
 			String allHistory=chatHistory.getText();
-			allHistory+=Client.getMessage(SettingsGUI.getClientID());
+			allHistory+=Client.getMessage();
 			chatHistory.setText(allHistory);
 		}
     }
     
 	public void dropMessage(){
-		Client.dropMessage(SettingsGUI.getClientID(), chatInput.getText());
+		Client.dropMessage(chatInput.getText());
 		chatInput.setText("");
 	}
  }

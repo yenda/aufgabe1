@@ -23,16 +23,6 @@ public class Client {
 	public static Registry reg = null;
 	public static final int PORT = Registry.REGISTRY_PORT;
 	
-	
-	public static String getMessage(String clientID)
-	{
-		try {
-			return Client.serverMsg.getMessage(clientID);
-		} catch (Exception e) {			
-			return e.getMessage();
-		}
-	}
-	
 	public static void launchTimerRefreshRate(){
 		try{
 	    	Client.timerRefrehRate.cancel();
@@ -42,12 +32,21 @@ public class Client {
 	    }
 	}
 	
-	public static void dropMessage(String clientID, String message)
+	public static String getMessage()
 	{
 		try {
-			Client.serverMsg.dropMessage(clientID,message);
+			return Client.serverMsg.getMessage(SettingsGUI.getClientID());
+		} catch (RemoteException e) {
+			return "";
+		}
+	}
+	
+	public static void dropMessage(String message)
+	{
+		try {
+			Client.serverMsg.dropMessage(SettingsGUI.getClientID(),message);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Call of function dropMessage failed", "error", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "Call of function dropMessage failed", "error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
