@@ -28,24 +28,17 @@ public class ListMessages {
 	 */
 	public String getMessage(int lastMessageID) throws RemoteException{
 		String messages = "";
-		int index;
+		int indexOf;
 		int listSize = this.listMessages.size();
-		
+		System.out.println("size : " + listSize);
 		if (listSize > 0){
-			//Last message the client received is not on the server anymore, he get the whole queue
-			if (lastMessageID < this.listMessages.get(0).getMessageID())
-				index = 0;
-			//Last message is on the server, the client only receive the new ones
-			else{
-				index = this.listMessages.indexOf(new Message(lastMessageID,"","",""));
-			}
-			if (index >= 0){
-				for (;index < this.listMessages.size() ; index++){
-					messages += this.listMessages.get(lastMessageID).messageToString(); 
+			indexOf = this.listMessages.indexOf(new Message(lastMessageID,"","",""));
+			if (indexOf != -1){
+				for (;indexOf < listSize ; indexOf++){
+					messages += this.listMessages.get(indexOf).messageToString(); 
 					messages += "\n";
-					Server.logInput("- message number  " + index);
+					Server.logInput("- message number  " + this.listMessages.get(indexOf).getMessageID());
 				}
-				//messages = messages.substring(0,-2);
 				return messages;
 			}
 		}

@@ -34,7 +34,6 @@ public class ListClients {
 		}
 		else{
 			int lastMessageID = this.listClients.get(index).getLastMessageID();
-			client.setLastMessageID(lastMessageID);
 			this.listClients.set(index, client);
 			return lastMessageID;
 		}
