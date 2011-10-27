@@ -1,8 +1,11 @@
 package chat.client;
 
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.*;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  * @author Laurine and Eric
@@ -12,7 +15,25 @@ public class SettingsGUI extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel usernameLabel, serverLabel, timeoutLabel, refreshRateLabel;
-	private JTextField clientID, server, timeout, refreshrate;
+	private JTextField jClientID, jServer, jTimeout, jRefreshrate;
+	private static String clientID, server;
+	private static int timeout, refreshrate;	
+
+	public static String getClientID() {
+		return clientID;
+	}
+
+	public static String getServer() {
+		return server;
+	}
+
+	public static int getTimeout() {
+		return timeout;
+	}
+
+	public static int getRefreshrate() {
+		return refreshrate;
+	}
 
 	/**
 	 * Builder
@@ -50,45 +71,45 @@ public class SettingsGUI extends JDialog {
 		JPanel panUsername = new JPanel();
 		panUsername.setBackground(Color.white);
 		panUsername.setPreferredSize(new Dimension(220, 60));
-		clientID = new JTextField();
-		clientID.setPreferredSize(new Dimension(100, 25));
+		jClientID = new JTextField();
+		jClientID.setPreferredSize(new Dimension(100, 25));
 		panUsername.setBorder(BorderFactory.createTitledBorder("Username"));
 		usernameLabel = new JLabel("Username :");
 		panUsername.add(usernameLabel);
-		panUsername.add(clientID);
+		panUsername.add(jClientID);
 		
 		//Server
 		JPanel panServer = new JPanel();
 		panServer.setBackground(Color.white);
 		panServer.setPreferredSize(new Dimension(220, 60));
-		server = new JTextField();
-		server.setPreferredSize(new Dimension(100, 25));
+		jServer = new JTextField();
+		jServer.setPreferredSize(new Dimension(100, 25));
 		panServer.setBorder(BorderFactory.createTitledBorder("Server"));
 		serverLabel = new JLabel("Server :");
 		panServer.add(serverLabel);
-		panServer.add(server);
+		panServer.add(jServer);
 		
 		//Timeout
 		JPanel panTimeout = new JPanel();
 		panTimeout.setBackground(Color.white);
 		panTimeout.setPreferredSize(new Dimension(220, 60));
-		timeout = new JTextField();
-		timeout.setPreferredSize(new Dimension(100, 25));
+		jTimeout = new JTextField();
+		jTimeout.setPreferredSize(new Dimension(100, 25));
 		panTimeout.setBorder(BorderFactory.createTitledBorder("Timeout"));
 		timeoutLabel = new JLabel("Timeout (in s)");
 		panTimeout.add(timeoutLabel);
-		panTimeout.add(timeout);
+		panTimeout.add(jTimeout);
 		
 		//Refresh rate
 		JPanel panRefreshrate = new JPanel();
 		panRefreshrate.setBackground(Color.white);
 		panRefreshrate.setPreferredSize(new Dimension(220, 60));
-		refreshrate = new JTextField();
-		refreshrate.setPreferredSize(new Dimension(100, 25));
+		jRefreshrate = new JTextField();
+		jRefreshrate.setPreferredSize(new Dimension(100, 25));
 		panRefreshrate.setBorder(BorderFactory.createTitledBorder("Refresh rate :"));
 		refreshRateLabel = new JLabel("Refresh rate");
 		panRefreshrate.add(refreshRateLabel);
-		panRefreshrate.add(refreshrate);
+		panRefreshrate.add(jRefreshrate);
 		
 		JPanel content = new JPanel();
 		content.setBackground(Color.white);
@@ -124,28 +145,31 @@ public class SettingsGUI extends JDialog {
 	
 	//Set the values from the Settings box and create a new client with them
 	public void getValues(){
-		String clientID = this.clientID.getText();
-		String server = this.server.getText();
-		String strTimeout = this.timeout.getText();
-		String strRefreshrate = this.refreshrate.getText();
-		
-		if((clientID != null) && (server != null) && (strTimeout != null) && (strRefreshrate != null))
-		{
-			int refreshrate=0, timeout=0;
-			try {	    
-			    refreshrate = Integer.parseInt(strRefreshrate);
-			    timeout = Integer.parseInt(strTimeout);
-			    try{
-			    	Client.timer.cancel();
-			    }catch (NullPointerException e){
-			    	
-			    }
-			    
-			    ClientGUI.setClient(new Client(clientID,server,timeout,refreshrate*1000));
-			    setVisible(false);
-			  }catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
-			  }			
+		SettingsGUI.clientID = this.jClientID.getText();
+		SettingsGUI.server = this.jServer.getText();
+		String strTimeout = this.jTimeout.getText();
+		String strRefreshrate = this.jRefreshrate.getText();			
+		if((SettingsGUI.clientID != null) && (SettingsGUI.server != null) && (strTimeout != null) && (strRefreshrate != null))
+			{
+			try {
+				Client.connexionServer();
+				try {	    
+					SettingsGUI.refreshrate = Integer.parseInt(strRefreshrate);
+					SettingsGUI.timeout = Integer.parseInt(strTimeout);
+				    setVisible(false);
+				}
+				catch (NumberFormatException e) {
+					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				Client.launchTimerRefreshRate();
+			}
+			catch (RemoteException e1){
+				JOptionPane.showMessageDialog(null, "Connection to the server failed", "error", JOptionPane.ERROR_MESSAGE);
+			}
+			catch (NotBoundException e){
+	            JOptionPane.showMessageDialog(null, "Connection to the server failed", "error", JOptionPane.ERROR_MESSAGE);
+			}
+			
 		}
 		else
 			JOptionPane.showMessageDialog(null, "Some fields are missing", "Error", JOptionPane.ERROR_MESSAGE);

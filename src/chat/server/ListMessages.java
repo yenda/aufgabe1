@@ -45,7 +45,7 @@ public class ListMessages {
 					messages += "\n";
 					Server.logInput("- message number  " + index);
 				}
-				messages = messages.substring(0, -2);
+				messages = messages.substring(0,-2);
 				return messages;
 			}
 		}
