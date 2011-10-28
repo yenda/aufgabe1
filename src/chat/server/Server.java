@@ -40,7 +40,7 @@ public class Server implements MessageServerInterface {
 		super();
 		this.listClients = new ListClients();
 		this.listMessages = new ListMessages();
-		this.messageID = 1;
+		this.messageID = 0;
 		this.timer = new Timer();
 		this.timer.scheduleAtFixedRate(new cleanUpClientList(), 10000, 10000);
 		this.logfile = "log.txt";
@@ -63,12 +63,12 @@ public class Server implements MessageServerInterface {
 	
 	public synchronized String getMessage (String clientID) throws RemoteException {
 		logInput(clientID+" received : ");
-		return listMessages.getMessage(listClients.updateClient(clientID, messageID));
+		return listMessages.getMessage(listClients.updateClient(clientID, messageID+1));
 	}
 
 	public synchronized void dropMessage (String clientID, String message) throws RemoteException {
-		 listMessages.dropMessage(this.messageID, clientID, message);
 		 this.messageID++;
+		 listMessages.dropMessage(this.messageID, clientID, message);
 		 
 	}
 
