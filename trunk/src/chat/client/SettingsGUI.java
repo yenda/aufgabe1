@@ -157,6 +157,7 @@ public class SettingsGUI extends JDialog {
 			{
 			try {
 				Client.connexionServer();
+				ClientGUI.setSendButton(true);
 				try {	    
 					SettingsGUI.refreshrate = Integer.parseInt(strRefreshrate);
 					SettingsGUI.timeout = Integer.parseInt(strTimeout);

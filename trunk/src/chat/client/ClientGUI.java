@@ -12,7 +12,7 @@ import javax.swing.*;
 public class ClientGUI extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	protected JButton sendButton;
+	protected static JButton sendButton;
 	protected static JTextArea chatHistory;
 	protected JTextArea chatInput;
 	protected JPanel panel;
@@ -27,14 +27,15 @@ public class ClientGUI extends JPanel{
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		sendButton = new JButton("Send");
+		setSendButton(false);
 		
 		//Create a non editable TextArea for the chat history
-		chatHistory = new JTextArea(20,20);
+		chatHistory = new JTextArea(20,30);
 		chatHistory.setLineWrap(true);
 		chatHistory.setEditable(false);
 		
 		//Create a TextArea for the chat input
-		chatInput = new JTextArea(5,20); 
+		chatInput = new JTextArea(5,30); 
 		chatInput.setLineWrap(true);
 		
 		//Listen to the actions "press the send button" and "press enter" to send the content of chat input
@@ -113,6 +114,10 @@ public class ClientGUI extends JPanel{
         });
 	}
 	
+	public static void setSendButton(boolean set){
+		sendButton.setEnabled(set);
+	}
+	
 	//Call the method dropMessage() when the action is performed
     private class sendButtonListener implements ActionListener {
     	public void actionPerformed(ActionEvent event){
@@ -124,7 +129,9 @@ public class ClientGUI extends JPanel{
     private class chatInputListener implements KeyListener {
 		public void keyReleased(KeyEvent e) {
 		    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-		  		dropMessage();
+		    	chatInput.setText(chatInput.getText().replaceAll("[\n]+", ""));
+		  		if (sendButton.isEnabled())
+		  			dropMessage();
 		  	}
 		}		
 		public void keyPressed(KeyEvent e) {}

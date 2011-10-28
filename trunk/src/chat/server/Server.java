@@ -51,7 +51,7 @@ public class Server implements MessageServerInterface {
 		}
 		
         this.registry = LocateRegistry.createRegistry(PORT);
-        this.registry.rebind("chatServer", (MessageServerInterface) UnicastRemoteObject.exportObject(this, 0));
+        this.registry.rebind("MessageServer", (MessageServerInterface) UnicastRemoteObject.exportObject(this, 0));
         
         String input = "Server is online on port " + PORT; 
         logInput(input);
@@ -94,14 +94,10 @@ public class Server implements MessageServerInterface {
 	
 	/*** main ***/
 	public static void main (String[] args) throws RemoteException{
-        
-		
-		
 		try {
             new Server();
         } catch (Exception e) {
-            System.err.println("server lauch failed:");
-            e.printStackTrace();
+            System.err.println("Server lauch failed");
         }
 
 	}
