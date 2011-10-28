@@ -1,35 +1,17 @@
-Thu Oct 27 16:01:18 CEST 2011 : Server is online on port 1099
-Thu Oct 27 16:01:18 CEST 2011 : Client will timeout avec 100 seconds of idle time
-Thu Oct 27 16:01:18 CEST 2011 : Server will store the last 10 last messages
-Thu Oct 27 16:01:28 CEST 2011 : Cleaning of client base processed : 0 client(s) deleted after timeout
-Thu Oct 27 16:01:34 CEST 2011 : lau received : 
-Thu Oct 27 16:01:34 CEST 2011 : - no message
-Thu Oct 27 16:01:36 CEST 2011 : lau received : 
-Thu Oct 27 16:01:36 CEST 2011 : - no message
-Thu Oct 27 16:01:37 CEST 2011 : Message dropped : <0> <lau> : <coucou> <Thu Oct 27 16:01:37 CEST 2011>
-Thu Oct 27 16:01:38 CEST 2011 : lau received : 
-Thu Oct 27 16:01:38 CEST 2011 : - message number  0
-Thu Oct 27 16:01:38 CEST 2011 : Cleaning of client base processed : 0 client(s) deleted after timeout
-Thu Oct 27 16:01:40 CEST 2011 : lau received : 
-Thu Oct 27 16:01:40 CEST 2011 : - no message
-Thu Oct 27 16:01:42 CEST 2011 : lau received : 
-Thu Oct 27 16:01:42 CEST 2011 : - no message
-Thu Oct 27 16:01:44 CEST 2011 : lau received : 
-Thu Oct 27 16:01:44 CEST 2011 : - no message
-Thu Oct 27 16:01:46 CEST 2011 : lau received : 
-Thu Oct 27 16:01:46 CEST 2011 : - no message
-Thu Oct 27 16:01:48 CEST 2011 : lau received : 
-Thu Oct 27 16:01:48 CEST 2011 : - no message
-Thu Oct 27 16:01:48 CEST 2011 : Cleaning of client base processed : 0 client(s) deleted after timeout
-Thu Oct 27 16:01:50 CEST 2011 : lau received : 
-Thu Oct 27 16:01:50 CEST 2011 : - no message
-Thu Oct 27 16:01:50 CEST 2011 : Message dropped : <1> <lau> : < hey> <Thu Oct 27 16:01:50 CEST 2011>
-Thu Oct 27 16:01:52 CEST 2011 : lau received : 
-Thu Oct 27 16:01:52 CEST 2011 : - message number  1
-Thu Oct 27 16:01:54 CEST 2011 : lau received : 
-Thu Oct 27 16:01:54 CEST 2011 : - no message
-Thu Oct 27 16:01:56 CEST 2011 : lau received : 
-Thu Oct 27 16:01:56 CEST 2011 : - no message
-Thu Oct 27 16:01:58 CEST 2011 : Cleaning of client base processed : 0 client(s) deleted after timeout
-Thu Oct 27 16:02:08 CEST 2011 : Cleaning of client base processed : 0 client(s) deleted after timeout
-Thu Oct 27 16:02:18 CEST 2011 : Cleaning of client base processed : 0 client(s) deleted after timeout
+Fri Oct 28 14:16:58 CEST 2011 : Server is online on port 1099
+Fri Oct 28 14:16:58 CEST 2011 : Client will timeout avec 100 seconds of idle time
+Fri Oct 28 14:16:58 CEST 2011 : Server will store the last 10 last messages
+Fri Oct 28 14:16:58 CEST 2011 : User received : 
+Fri Oct 28 14:16:58 CEST 2011 : - no message
+Fri Oct 28 14:17:00 CEST 2011 : User received : 
+Fri Oct 28 14:17:00 CEST 2011 : - no message
+Fri Oct 28 14:17:02 CEST 2011 : User received : 
+Fri Oct 28 14:17:02 CEST 2011 : - no message
+Fri Oct 28 14:17:04 CEST 2011 : User received : 
+Fri Oct 28 14:17:04 CEST 2011 : - no message
+Fri Oct 28 14:17:06 CEST 2011 : User received : 
+Fri Oct 28 14:17:06 CEST 2011 : - no message
+Fri Oct 28 14:17:08 CEST 2011 : Cleaning of client base processed : 0 client(s) deleted after timeout
+Fri Oct 28 14:17:18 CEST 2011 : Cleaning of client base processed : 0 client(s) deleted after timeout
+Fri Oct 28 14:17:18 CEST 2011 : Message dropped : <1> <User> : <hello
+> <Fri Oct 28 14:17:18 CEST 2011>
