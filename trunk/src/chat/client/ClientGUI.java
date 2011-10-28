@@ -44,7 +44,7 @@ public class ClientGUI extends JPanel{
         //Put the chatHistory and chatInput textAreas in scroll panes.
         JScrollPane scrollerChatHistory = new JScrollPane(chatHistory);
         JScrollPane scrollerChatInput = new JScrollPane(chatInput);
-        
+        scrollerChatInput.setAutoscrolls(true);
         panel.add(scrollerChatInput);
 		panel.add(sendButton);
 		add(scrollerChatHistory);
@@ -137,6 +137,7 @@ public class ClientGUI extends JPanel{
 			String allHistory=chatHistory.getText();
 			allHistory+=Client.getMessage();
 			chatHistory.setText(allHistory);
+			chatHistory.setCaretPosition(chatHistory.getText().length());
 		}
     }
     

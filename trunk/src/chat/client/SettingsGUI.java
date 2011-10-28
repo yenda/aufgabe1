@@ -77,6 +77,7 @@ public class SettingsGUI extends JDialog {
 		usernameLabel = new JLabel("Username :");
 		panUsername.add(usernameLabel);
 		panUsername.add(jClientID);
+		jClientID.setText("User");
 		
 		//Server
 		JPanel panServer = new JPanel();
@@ -88,6 +89,7 @@ public class SettingsGUI extends JDialog {
 		serverLabel = new JLabel("Server :");
 		panServer.add(serverLabel);
 		panServer.add(jServer);
+		jServer.setText("localhost");
 		
 		//Timeout
 		JPanel panTimeout = new JPanel();
@@ -99,6 +101,7 @@ public class SettingsGUI extends JDialog {
 		timeoutLabel = new JLabel("Timeout (in s)");
 		panTimeout.add(timeoutLabel);
 		panTimeout.add(jTimeout);
+		jTimeout.setText("10");
 		
 		//Refresh rate
 		JPanel panRefreshrate = new JPanel();
@@ -110,6 +113,7 @@ public class SettingsGUI extends JDialog {
 		refreshRateLabel = new JLabel("Refresh rate");
 		panRefreshrate.add(refreshRateLabel);
 		panRefreshrate.add(jRefreshrate);
+		jRefreshrate.setText("2");
 		
 		JPanel content = new JPanel();
 		content.setBackground(Color.white);
