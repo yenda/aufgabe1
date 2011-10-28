@@ -30,7 +30,6 @@ public class ListMessages {
 		String messages = "";
 		int indexOf;
 		int listSize = this.listMessages.size();
-		System.out.println("size : " + listSize);
 		if (listSize > 0){
 			indexOf = this.listMessages.indexOf(new Message(lastMessageID,"","",""));
 			if (indexOf != -1){
@@ -55,8 +54,13 @@ public class ListMessages {
 	 * 
 	 **/
 	public void dropMessage(int messageID, String clientID, String message){
+		System.out.println("siz"+this.listMessages.size());
 		this.listMessages.add(new Message(messageID, clientID, message, ((new Date()).toString())));
-		Server.logInput("Message dropped : "+this.listMessages.get(messageID).messageToString());
+		if (messageID < 10)
+			Server.logInput("Message dropped : "+this.listMessages.get(messageID-1).messageToString());
+		else
+			Server.logInput("Message dropped : "+this.listMessages.get(9).messageToString());
+		System.out.println("sizafter"+this.listMessages.size());
 		if (this.listMessages.size() > Server.MAX_MESSAGES){
 			Server.logInput("Limit exceeded, message deleted : "+this.listMessages.get(0).messageToString());
 			this.listMessages.remove(0);
