@@ -19,7 +19,9 @@ public class ClientGUI extends JPanel{
 	
 	public static SettingsGUI settings;	
 
-	//Constructor of the GUI
+	/**
+	 * Constructor of the GUI
+	 */
 	private ClientGUI(){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -54,7 +56,10 @@ public class ClientGUI extends JPanel{
 
 	}
 	
-	//Create the Menu bar
+	/**
+	 * Create the Menu bar
+	 * @return the menu bar
+	 */
 	private static JMenuBar createMenuBar() {
         JMenuBar menuBar;
         JMenu menu;
@@ -85,7 +90,9 @@ public class ClientGUI extends JPanel{
         return menuBar;
     }
 	
-	//Create and show the GUI
+	/**
+	 * Creates the GUI and shows it
+	 */
 	public static void createAndShowGUI(){
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
@@ -114,18 +121,28 @@ public class ClientGUI extends JPanel{
         });
 	}
 	
+	/**
+	 * Allow to change the state of the send button when a message can't be send
+	 * @param set boolean
+	 */
 	public static void setSendButton(boolean set){
 		sendButton.setEnabled(set);
 	}
 	
-	//Call the method dropMessage() when the action is performed
+	/**
+	 * Call the method dropMessage() when the action is performed
+	 *
+	 */
     private class sendButtonListener implements ActionListener {
     	public void actionPerformed(ActionEvent event){
 			dropMessage();
     	}
     }
     
-    //Call the method dropMessage() when the key ENTER is released
+    /**
+     * Call the method dropMessage() when the key ENTER is released
+     *
+     */
     private class chatInputListener implements KeyListener {
 		public void keyReleased(KeyEvent e) {
 		    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -138,7 +155,10 @@ public class ClientGUI extends JPanel{
 		public void keyTyped(KeyEvent e) {}
     }
     
-    //call the getMessage method according to the refreshrate
+    /**
+     * call the getMessage method according to the refreshrate
+     *
+     */
     static class getMessage extends TimerTask{
 		public void run(){
 			String allHistory=chatHistory.getText();
@@ -147,7 +167,7 @@ public class ClientGUI extends JPanel{
 			chatHistory.setCaretPosition(chatHistory.getText().length());
 		}
     }
-    
+
 	public void dropMessage(){
 		Client.dropMessage(chatInput.getText());
 		chatInput.setText("");

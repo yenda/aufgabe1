@@ -1,5 +1,8 @@
 package chat.server;
 
+/**
+ * @author Eric
+ */
 public class Message {
 	
 	private int messageID;
@@ -14,6 +17,10 @@ public class Message {
 		this.timestamp = date;
 	}
 	
+	/**
+	 * Convert a message into a string
+	 * @return a string with the format <messageID><clientID> : <Message><Date>
+	 */
 	public String messageToString(){
 		String message = "<";
 		message += this.getMessageID();

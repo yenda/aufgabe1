@@ -1,5 +1,8 @@
 package chat.server;
 
+/**
+ * @author Eric
+ */
 public class ClientData {
 	private String clientID;
 	private int lastMessageID;
