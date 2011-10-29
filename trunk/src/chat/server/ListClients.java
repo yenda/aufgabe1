@@ -45,7 +45,7 @@ public class ListClients {
 	
 	/**
 	 * delete the clients who have been idle for too long
-	 * @return nb of deleted client
+	 * @return number of deleted client
 	 */
 	public int cleanUp (){
 		long timestamp = System.currentTimeMillis();

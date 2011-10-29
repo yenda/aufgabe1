@@ -41,7 +41,7 @@ public class Client {
 	    }
 	}
 	
-
+	
     static class serverFailure extends TimerTask{
 		public void run(){
 			timedOut = true;
@@ -49,12 +49,7 @@ public class Client {
 			timerRefrehRate.cancel();
 		}
     }
-    
-    static class recallDropMessage extends TimerTask{
-		public void run(){
-			
-		}
-    }
+
 	
     /**
      * Get the new messages on the server

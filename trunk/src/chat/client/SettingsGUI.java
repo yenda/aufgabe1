@@ -147,7 +147,9 @@ public class SettingsGUI extends JDialog {
 		
 	}
 	
-	//Set the values from the Settings box and create a new client with them
+	/**
+	 * Set the settings values
+	 */
 	public void getValues(){
 		SettingsGUI.clientID = this.jClientID.getText();
 		SettingsGUI.server = this.jServer.getText();
